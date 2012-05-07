@@ -37,12 +37,11 @@
             <id>default</id>
             <phases>
                 <process-sources>selera.maven:grails-wrapper-plugin:set-version</process-sources>
-              <!-- Resource processing moved to after grails compile to avoid conflicts with grails plugin installation wiping the target directory -->
-              <compile>
-                    selera.maven:grails-wrapper-plugin:compile,
+                <process-resources>
                     org.apache.maven.plugins:maven-resources-plugin:resources,
                     org.apache.maven.plugins:maven-resources-plugin:testResources
-              </compile>
+                </process-resources>
+                <compile>selera.maven:grails-wrapper-plugin:compile</compile>
                 <test>selera.maven:grails-wrapper-plugin:test-app</test>
                 <!-- <package>selera.maven:grails-wrapper-plugin:war</package>  The maven-install plugin generates the WAR as well -->
                 <install>selera.maven:grails-wrapper-plugin:maven-install</install>
@@ -72,12 +71,11 @@
             <id>default</id>
             <phases>
               <process-sources>selera.maven:grails-wrapper-plugin:set-version</process-sources>
-              <!-- Resource processing moved to after grails compile to avoid conflicts with grails plugin installation wiping the target directory -->
-              <compile>
-                    selera.maven:grails-wrapper-plugin:compile,
+              <process-resources>
                     org.apache.maven.plugins:maven-resources-plugin:resources,
                     org.apache.maven.plugins:maven-resources-plugin:testResources
-              </compile>
+              </process-resources>
+              <compile>selera.maven:grails-wrapper-plugin:compile</compile>
               <test>selera.maven:grails-wrapper-plugin:test-app</test>
               <package>selera.maven:grails-wrapper-plugin:package-plugin</package>
               <install>selera.maven:grails-wrapper-plugin:maven-install</install>

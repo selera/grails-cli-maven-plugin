@@ -33,7 +33,7 @@ For plugins:
  - In your XxxPlugin.groovy set your maven groupId and set packaging = "binary"
 
 For apps:
- - enabled mavenLocal() in your BuildConfig.groovy to allow pulling in your own grails plugins from maven.
+ - enable mavenLocal() in your BuildConfig.groovy to allow pulling in your own grails plugins from your local maven repo.
 
 Maven Command Line
 ------------------
@@ -58,11 +58,11 @@ Known Issues:
 -------------
 
  1. POM generation conflict.  
-We define a very simple pom.xml for each of our grails plugins or apps. But we dont' put any dependencies in these poms. But when the release plugin does the maven install, it sees the pom.xml and assumes maven is controlling the dependencies. So when your plugin is installed into your repo, it gets an empty pom that doesnt contain the dependencies that the plugin actually defines via BuildConfig.groovy. I have a simple patch for the release plugin that recognises that "pom false" means ignore the pom.xml that exists when "generating" a pom for the release plugin's maven-install script. i.e. if "pom false" then always ignore any existing pom.xml and go ahead and generate one anyway. I'll try to get this behaviour pulled into the official grails release plugin as I dont think the behaviour will cause a problem for anyone else.
+We define a very simple pom.xml for each of our grails plugins or apps. But we don't put any dependencies in these poms. But when the release plugin does the maven install, it sees the pom.xml and assumes maven is controlling the dependencies. So when your plugin is installed into your repo, it gets our simple pom that doesn't contain the dependencies that the plugin actually defines via BuildConfig.groovy. I have a simple patch for the release plugin that recognises that "pom false" means ignore the pom.xml that exists when "generating" a pom for the release plugin's maven-install script. i.e. if "pom false" then always ignore any existing pom.xml and go ahead and generate one anyway. I've created a pull request to get this behaviour brought into the official grails release plugin as I dont think the behaviour will cause a problem for anyone else.
 
 Resolved Issues:
 ----------------
 
  1. Resource Processing conflict with Grails Scripts.  
-Maven resource processing into /target was occasionally being clobbered by grails plugin installation scripts. Resolved by moving maven resource processing from process-resources phase to within the compile phase but after the grails compile.
+Don't use the 1.0.0 version of the grails-release plugin which seems to want to delete /target when its installing plugins. Use 2.0.0.SELERA from https://github.com/selera/grails-release which also contains the fix for the POM generation conflict above. 
 
