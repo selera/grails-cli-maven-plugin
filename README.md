@@ -13,12 +13,12 @@ POM Setup
 1. Create a simple maven pom for your grails project (plugin or application).
 2. Use packaging 'grails-plugin' or 'grails-app'. The packaging triggers the maven lifecycle of goals appropriate for each.
 3. Add the plugin to the build section:
-``` xml
-<plugin>
-<groupId>selera.maven</groupId>
-<artifactId>grails-wrapper-plugin</artifactId>
-<version>0.9.2</version>
-<extensions>true</extensions>
+```
+<plugin>  
+<groupId>selera.maven</groupId>  
+<artifactId>grails-wrapper-plugin</artifactId>  
+<version>0.9.2</version>  
+<extensions>true</extensions>  
 </plugin>
 ```
 
