@@ -1,5 +1,5 @@
-grails-wrapper-plugin
-=====================
+grails-cli-maven-plugin
+=======================
 
 Simple maven wrapper plugin around grails via the command line. Looks for grails on your path. Grails retains ownership of build dependency management. Maven is only used to invoke the phases of the build lifecycle. Grails project is not aware and does not depend on the presence of Maven. Good if you want your larger project driven by Maven, but want to be able to drop into a specific grails project and pretend Maven (and the complexity of Maven&lt;-&gt;Grails integration) does not exist. Grails command line support and compatibility is retained.
 
@@ -16,8 +16,8 @@ POM Setup
 ```
 <plugin>  
 <groupId>selera.maven</groupId>  
-<artifactId>grails-wrapper-plugin</artifactId>  
-<version>0.9.2</version>  
+<artifactId>grails-cli-maven-plugin</artifactId>  
+<version>0.9.3</version>  
 <extensions>true</extensions>  
 </plugin>
 ```
@@ -58,11 +58,8 @@ Known Issues:
 -------------
 
  1. POM generation conflict.  
-We define a very simple pom.xml for each of our grails plugins or apps. But we don't put any dependencies in these poms. But when the release plugin does the maven install, it sees the pom.xml and assumes maven is controlling the dependencies. So when your plugin is installed into your repo, it gets our simple pom that doesn't contain the dependencies that the plugin actually defines via BuildConfig.groovy. I have a simple patch for the release plugin that recognises that "pom false" means ignore the pom.xml that exists when "generating" a pom for the release plugin's maven-install script. i.e. if "pom false" then always ignore any existing pom.xml and go ahead and generate one anyway. I've created a pull request to get this behaviour brought into the official grails release plugin as I dont think the behaviour will cause a problem for anyone else.
+We define a very simple pom.xml for each of our grails plugins or apps. But we don't put any dependencies in these poms. But when the release plugin does the maven install, it sees the pom.xml and assumes maven is controlling the dependencies. So when your plugin is installed into your repo, it gets our simple pom that doesn't contain the dependencies that the plugin actually defines via BuildConfig.groovy. I have a simple patch for the release plugin that recognises a command line option of "--ignoreBasePom" which ignores the pom.xml that exists when "generating" a pom for the release plugin's maven-install script. i.e. if "--ignoreBasePom" then always ignore any existing pom.xml and go ahead and generate one anyway. I've created a pull request to get this behaviour brought into the official grails release plugin after comments received from Peter Ledbrook.
 
-Resolved Issues:
-----------------
-
- 1. Resource Processing conflict with Grails Scripts.  
-Don't use the 1.0.0 version of the grails-release plugin which seems to want to delete /target when its installing plugins. Use 2.0.0.SELERA from https://github.com/selera/grails-release which also contains the fix for the POM generation conflict above. 
+ 2. Resource Processing conflict with Grails Scripts.  
+Occasionally, like when a plugin dependency requires installation during the mavn build process, there is some interference which causes the /target folder to be deleted after maven resourcing has taken place. I am working in this and considering shifting the resource processing to occur after grails compilation. The current workaround for this is simply to build again, because the second time around the plugin will be installed into the grails working directory, and the interference won't occur.
 

@@ -1,0 +1,84 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>selera.maven</groupId>
+    <artifactId>grails-cli-maven-plugin</artifactId>
+    <version>0.9.3</version>
+    <packaging>maven-plugin</packaging>
+
+    <name>Grails CLI Maven Plugin</name>
+    <url>http://selera.com</url>
+
+    <properties>
+        <!-- Prerequisites -->
+        <maven.version>2.0.9</maven.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Dependencies -->
+        <maven-model.version>${maven.version}</maven-model.version>
+        <maven-core.version>${maven.version}</maven-core.version>
+        <maven-project.version>${maven.version}</maven-project.version>
+        <maven-plugin-api.version>${maven.version}</maven-plugin-api.version>
+        <maven-plugin-plugin.version>2.4.1</maven-plugin-plugin.version>
+    </properties>
+
+    <prerequisites>
+        <maven>${maven.version}</maven>
+    </prerequisites>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-project</artifactId>
+            <version>${maven-project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>${maven-plugin-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>1.5.7</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>${maven-plugin-plugin.version}</version>
+                <configuration>
+                    <goalPrefix>grails-maven-plugin</goalPrefix>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generated-helpmojo</id>
+                        <goals>
+                            <goal>helpmojo</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <distributionManagement>
+        <site>
+            <id>selera-sites</id>
+            <url>scp://optimus.selera.com.au:/var/www/projects/036_Selera_Maven/</url>
+        </site>
+        <repository>
+            <id>seleraReleases</id>
+            <name>Selera Releases repository</name>
+            <url>http://nexus.selera.com.au:8081/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>seleraSnapshots</id>
+            <name>Selera Snapshot repository</name>
+            <url>http://nexus.selera.com.au:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>

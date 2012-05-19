@@ -20,16 +20,9 @@ grails.project.dependency.resolution = {
         inherits true // Whether to inherit repository definitions from plugins
         grailsPlugins()
         grailsHome()
-        grailsCentral()
-        mavenCentral()
-
-        // uncomment these to enable remote dependency resolution from public Maven repositories
-        //mavenCentral()
         mavenLocal()
-        //mavenRepo "http://snapshots.repository.codehaus.org"
-        //mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
-        //mavenRepo "http://repository.jboss.com/maven2/"
+        mavenRepo "http://repo.grails.org/grails/plugins"
+        mavenCentral()
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
@@ -49,6 +42,6 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.4"
 
         build ":tomcat:$grailsVersion"
-        build ":release:1.0.0.SELERA"
+        build ":release:2.0.2.SELERA"
     }
 }
